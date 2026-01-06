@@ -20,6 +20,11 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
+  #
+  
+  # Prevent compilation of assets in Sass mode:
+  # https://github.com/tailwindlabs/tailwindcss/discussions/6738#discussioncomment-2010199
+  config.assets.css_compressor = nil
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
