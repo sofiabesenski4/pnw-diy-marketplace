@@ -24,6 +24,9 @@ Rails.application.configure do
   
   # Prevent compilation of assets in Sass mode:
   # https://github.com/tailwindlabs/tailwindcss/discussions/6738#discussioncomment-2010199
+  #
+  # Eventually we may want to switch to DartSass:
+  # https://sass-lang.com/dart-sass/
   config.assets.css_compressor = nil
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
