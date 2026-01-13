@@ -29,6 +29,10 @@ Rails.application.configure do
   # https://sass-lang.com/dart-sass/
   config.assets.css_compressor = nil
 
+  # We need this for heroku:
+  # https://devcenter.heroku.com/articles/rails-asset-pipeline#compile-set-to-true-in-production
+  config.assets.compile = false
+  
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
