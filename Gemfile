@@ -51,7 +51,7 @@ gem "solidus_auth_devise", "~> 2.5"
 gem "responders"
 gem "solidus_support", ">= 0.12.0"
 gem "view_component", "~> 3.0"
-gem "tailwindcss-rails", "~> 3.0"
+gem "tailwindcss-rails", "~> 4.4"
 
 group :test do
   gem "capybara"
