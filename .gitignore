@@ -27,3 +27,5 @@
 
 /node_modules
 app/assets/builds/solidus_admin/
+
+public/system
