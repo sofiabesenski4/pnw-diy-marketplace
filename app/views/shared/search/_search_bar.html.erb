@@ -15,7 +15,7 @@
       "data-turbo-stream": true,
       "data-search-target": "form" do %>
 
-    <%= search_field_tag :keywords, params[:keywords], placeholder: "Search", id: form_id, class: 'bg-transparent !border-b border-gray-300 px-0 py-1 text-sm w-full lg:min-w-[200px] focus:ring-0 focus:border-b-red-500', autocomplete: "off",
+    <%= search_field_tag :keywords, params[:keywords], placeholder: "Search", id: form_id, class: 'bg-transparent text-current !border-b-2 border-current h-11 px-1 py-0 text-[17px] normal-case tracking-normal font-normal w-full lg:min-w-[150px] xl:min-w-[220px] placeholder:font-hand placeholder:text-body-lg placeholder:text-gray-500 focus:ring-0 focus:border-b-bic', autocomplete: "off",
       "data-action": "input->search#fetchResults
                       keydown.down->search#nextResult
                       keydown.up->search#previousResult
@@ -25,10 +25,8 @@
       "data-search-target": "keywords" %>
 
 
-    <%= button_tag type: 'submit', class: "search-bar__button", title: 'Search', "data-search-id-param": form_id do %>
-      <svg class='w-6 h-6 fill-black dark:fill-white'>
-        <use xlink:href="<%= image_path('remixicon.symbol.svg') %>#ri-search-2-line"></use>
-      </svg>
+    <%= button_tag type: 'submit', class: "search-bar__button flex items-center justify-center w-11 h-11 text-current", title: 'Search', "data-search-id-param": form_id do %>
+      <svg class='w-6 h-6' viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3.5 C6 3.2 3.4 6.6 3.6 10.2 C3.8 14 7 16.6 10.6 16.4 C14.4 16.2 17 13.2 16.8 9.8 C16.6 6.2 13.8 3.7 10.6 3.6 M15.2 15.4 L20.6 20.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
     <% end %>
   <% end %>
   <div id="<%= results_list_id %>" class="hidden" data-search-target="results"></div>

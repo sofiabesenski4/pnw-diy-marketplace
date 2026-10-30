@@ -1,6 +1,6 @@
 <article class="wrapper grid-container py-12 md:pl-7 md:pr-6" id="guest_checkout">
   <div class="col-span-full md:col-start-1 md:col-span-10">
-    <h1 class="font-serif text-h4 lg:text-h3 text-center"><%= I18n.t('spree.guest_user_account') %></h1>
+    <h1 class="font-serif text-h5 md:text-h4 text-center"><%= I18n.t('spree.guest_user_account') %></h1>
 
     <%= form_for @order,
       url: checkout_guest_session_path,
@@ -16,12 +16,12 @@
       <div class="text-center flex flex-col gap-6 items-center">
         <%= f.button t("spree.continue"),
           name: :commit,
-          class: 'w-fit py-3 px-7 rounded-full text-body-sm font-bold leading-none uppercase whitespace-nowrap transiton-colors duration-200 bg-red-500 text-white hover:bg-red-700'
+          class: 'w-fit button-primary'
         %>
       </div>
 
       <div class="mt-12 text-center">
-        <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), signup_path, class:"transition-all duration-300 text-black hover:!text-red-500 dark:text-sand underline" %>
+        <%= I18n.t("spree.or") %> <%= link_to I18n.t("spree.create_a_new_account"), signup_path, class:"transition-all duration-300 text-black hover:!text-bic dark:text-sand underline" %>
       </div>
 
     <% end %>

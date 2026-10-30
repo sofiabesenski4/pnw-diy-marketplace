@@ -8,6 +8,9 @@
     <%= simple_canonical_tag %>
     <%= csrf_meta_tags %>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Reenie+Beanie&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'solidus_starter_frontend' %>
     <%= stylesheet_link_tag 'solidus_starter_frontend', media: 'screen' %>
@@ -31,8 +34,8 @@
       <main>
         <%= render BreadcrumbsComponent.new(
           taxon: @product&.primary_taxon || @taxon,
-          item_classes: 'text-body-xs text-gray-500',
-          separator_classes: 'text-body-xs text-gray-500 ml-2',
+          item_classes: 'text-[15px] text-bic underline underline-offset-2 hover:text-ink dark:text-sand',
+          separator_classes: 'text-[15px] ml-2',
           container_classes: 'flex gap-2',
           wrapper_classes: 'wrapper mt-4',
           order: @order

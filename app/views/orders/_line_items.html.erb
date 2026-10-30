@@ -54,7 +54,7 @@
   <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
     <div id="order-charges" class="<%= line_class_names %> font-sans-md">
       <dt><%= adjustment.label %></dt>
-      <dd class="text-red-500"><%= adjustment.display_amount.to_html %></dd>
+      <dd class="text-red-pen"><%= adjustment.display_amount.to_html %></dd>
     </div>
   <% end %>
 

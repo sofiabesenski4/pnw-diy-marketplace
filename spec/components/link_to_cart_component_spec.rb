@@ -22,11 +22,11 @@ RSpec.describe LinkToCartComponent, type: :component do
         let(:current_order) { nil }
 
         it 'renders an empty cart' do
-          link = page.find('a.cart-info')
+          link = page.find('a.cart-info.empty')
 
           aggregate_failures do
             expect(link).to_not be_nil
-            expect(link.text).to be_empty
+            expect(link.find('.link-text')).to have_content('0')
           end
         end
       end
@@ -39,7 +39,7 @@ RSpec.describe LinkToCartComponent, type: :component do
           let(:line_items_count) { 0 }
 
           it 'renders an empty cart' do
-            expect(page.find('a.cart-info').text).to be_empty
+            expect(page.find('a.cart-info.empty .link-text')).to have_content('0')
           end
         end
 

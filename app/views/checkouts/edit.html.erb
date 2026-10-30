@@ -8,7 +8,7 @@
     </section>
 
     <% if @order.state != "confirm" %>
-      <div class="checkout__summary col-span-full lg:col-span-4 xl:col-start-10 xl:col-span-3">
+      <div class="checkout__summary col-span-full lg:col-span-4">
         <%= render "checkout_summary", order: @order %>
       </div>
     <% end %>

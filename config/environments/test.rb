@@ -50,4 +50,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Prevent compilation of assets in Sass mode:
+  # https://github.com/tailwindlabs/tailwindcss/discussions/6738#discussioncomment-2010199
+  config.assets.css_compressor = nil
 end

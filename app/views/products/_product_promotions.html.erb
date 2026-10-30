@@ -1,13 +1,13 @@
 <% promotions = product.possible_promotions %>
 
 <% if promotions.any? %>
-  <section class="product-promotions">
-    <h2><%= t('spree.promotions') %></h2>
+  <section class="product-promotions sticky-note self-start flex flex-col gap-2 px-[18px] py-3">
+    <h2 class="label-caps"><%= t('spree.promotions') %></h2>
 
     <% promotions.each do |promotion| %>
       <article>
         <header>
-          <h3><%= promotion.name %></h3>
+          <h3 class="font-hand text-[26px] leading-none"><%= promotion.name %></h3>
         </header>
 
         <p><%= promotion.description %></p>

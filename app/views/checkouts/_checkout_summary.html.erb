@@ -1,7 +1,8 @@
-<% dl_classes = 'flex items-center justify-between p-3 [&>dd]:font-sans-md' %>
+<% dl_classes = 'flex items-center justify-between py-1.5 [&>dd]:font-bold' %>
 
-<section class="checkout-summary p-6 bg-gray-50 h-full text-black dark:bg-gray-800 dark:text-sand" id="checkout-summary">
-  <h2 class="checkout-summary__title font-serif mb-6 text-h6 md:text-h5">
+<section class="checkout-summary sticky-note px-[26px] pt-7 pb-[26px] h-fit" id="checkout-summary">
+  <span class="tape w-[110px] -ml-[55px] -rotate-3" aria-hidden="true"></span>
+  <h2 class="checkout-summary__title font-serif mb-3.5 text-[22px] leading-[1.6]">
     <%= t('spree.order_summary') %>
   </h2>
 
@@ -12,7 +13,7 @@
   </div>
 
   <dl>
-    <div class="pb-7 border-b-[1px] border-b-gray-200">
+    <div class="pb-3 border-b-2 border-dashed border-b-ink">
       <div class="checkout-summary__entry <%= dl_classes %>" id="item-total">
         <dt><%= t('spree.item_total') %>:</dt>
         <dd><%= order.display_item_total.to_html %></dd>
@@ -54,7 +55,7 @@
         <div class="checkout-summary__entry <%= dl_classes %> font-sans-md" id="summary-order-charges">
           <% order.adjustments.nonzero.non_tax.eligible.each do |adjustment| %>
             <dt><%= adjustment.label %>:</dt>
-            <dd class="text-primary"><%= adjustment.display_amount.to_html %></dd>
+            <dd class="text-red-pen"><%= adjustment.display_amount.to_html %></dd>
           <% end %>
         </div>
       <% end %>
@@ -67,9 +68,9 @@
       <% end %>
     </div>
 
-    <div class="checkout-summary__total <%= dl_classes %> pt-7">
-      <dt class="text-body-20"><%= t('spree.order_total') %>:</dt>
-      <dd class="text-body-20"><%= order.display_order_total_after_store_credit.to_html %></dd>
+    <div class="checkout-summary__total <%= dl_classes %> items-baseline mt-3 pt-2 border-t-[3px] border-double border-t-ink">
+      <dt class="font-bold text-body-md uppercase tracking-[.08em]"><%= t('spree.order_total') %>:</dt>
+      <dd class="price-pen text-body-lg"><%= order.display_order_total_after_store_credit.to_html %></dd>
     </div>
   </dl>
 </section>

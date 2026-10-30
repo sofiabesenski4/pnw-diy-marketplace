@@ -10,12 +10,12 @@
 %>
 
 <div class="<%= class_names %> flex flex-col gap-y-3">
-  <h3 class="<%= base_class %>__name text-body-lg">
+  <h3 class="<%= base_class %>__name font-hand text-[32px] leading-none">
     <%= link_to line_item.name, product_path(variant.product) %>
   </h3>
 
   <% if defined?(line_item.single_money) %>
-    <p class="font-sans-md text-body-sm">
+    <p class="price-pen text-body-sm">
       <%= line_item.single_money.to_html %>
     </p>
   <% end %>
