@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.4"
+gem "rails", "~> 8.1.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -45,7 +45,7 @@ group :development do
   gem "web-console"
 end
 
-gem "solidus", "~> 4.6"
+gem "solidus", "~> 4.8"
 
 gem "solidus_auth_devise", "~> 2.5"
 gem "responders"
