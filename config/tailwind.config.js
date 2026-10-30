@@ -17,20 +17,24 @@ module.exports = {
       '2xl': '1386px',
       '3xl': '1536px',
     },
+    // Ballpoint Punk type: Courier Prime for body and UI, Rock Salt for
+    // headings (the existing `serif` slots), Reenie Beanie for handwritten notes.
     fontFamily: {
-      sans: ['Inter Regular', 'system-ui', 'sans-serif'],
-      'sans-md': ['"Inter Medium"', 'system-ui', 'sans-serif'],
-      serif: ['Source Serif', 'system-ui', 'serif'],
-      'serif-md': ['"Source Serif Medium"', 'system-ui', 'serif'],
+      sans: ['"Courier Prime"', 'ui-monospace', 'monospace'],
+      'sans-md': ['"Courier Prime"', 'ui-monospace', 'monospace'],
+      serif: ['"Rock Salt"', 'cursive'],
+      'serif-md': ['"Rock Salt"', 'cursive'],
+      hand: ['"Reenie Beanie"', 'cursive'],
     },
+    // Rock Salt runs large and tall, so headings are smaller with roomier leading.
     fontSize: {
-      h1: ['4rem', '120%'],
-      h2: ['3.375rem', '125%'],
-      'h2.5': ['3rem', '125%'],
-      h3: ['2.5rem', '125%'],
-      h4: ['2rem', '125%'],
-      h5: ['1.75rem', '125%'],
-      h6: ['1.5rem', '125%'],
+      h1: ['2.75rem', '150%'],
+      h2: ['2.5rem', '150%'],
+      'h2.5': ['2.375rem', '150%'],
+      h3: ['2.25rem', '150%'],
+      h4: ['1.875rem', '150%'],
+      h5: ['1.625rem', '150%'],
+      h6: ['1.375rem', '150%'],
       'body-lg': ['1.5rem', '150%'],
       'body-22': ['1.375rem', '150%'],
       'body-20': ['1.25rem', '140%'],
@@ -59,11 +63,35 @@ module.exports = {
       backgroundSize: {
         '85': '85%',
       },
+      boxShadow: {
+        'ink': '4px 5px 0 #141414',
+        'ink-lg': '6px 7px 0 #141414',
+        'bic': '6px 6px 0 #1F3A93',
+        'bic-lg': '9px 9px 0 #1F3A93',
+        'note': '5px 6px 0 rgba(20, 20, 20, .2)',
+      },
+      borderRadius: {
+        '2xl': '2rem',
+        'wonky': '4px 14px 5px 12px',
+        'wonky-sm': '3px 9px 4px 11px',
+      },
       colors: {
-        primary: '#EF3023',
-        black: '#222222',
+        // Ballpoint Punk tokens. `black`, `sand`, `primary` and `gray-50` are
+        // remapped so existing markup picks up ink, paper, bic blue and the photo well.
+        paper: '#FBFAF3',
+        ink: '#141414',
+        bic: '#1F3A93',
+        'red-pen': '#B42B25',
+        rule: '#BFD3EC',
+        margin: '#E58F8F',
+        sticky: '#FFF3A8',
+        highlighter: '#F5D76E',
+        well: '#F3F1E7',
+        tape: 'rgba(233, 220, 170, .85)',
+        primary: '#1F3A93',
+        black: '#141414',
         'light-black': '#333333',
-        sand: '#F5F3F0',
+        sand: '#FBFAF3',
         pink: '#F6D7E2',
         seafoam: '#C1E0DE',
         plum: '#3A0E31',
@@ -75,7 +103,7 @@ module.exports = {
         yellow: '#FDC071',
         forrest: '#096756',
         dune: '#E6BF9B',
-        'solidus-red': '#EF3023',
+        'solidus-red': '#1F3A93',
         red: {
           100: '#F8D7D4',
           200: '#F1AFA9',
@@ -88,7 +116,7 @@ module.exports = {
           primary: '#C7CCC7',
           mid: '#D8DAD8',
           25: '#FAFAFA',
-          50: '#E8E8E8',
+          50: '#F3F1E7',
           100: '#DDDDDD',
           200: '#CFCFCF',
           300: '#BBBBBB',
@@ -106,9 +134,6 @@ module.exports = {
       height: {
         '1_col-3': '32%',
       },
-      borderRadius: {
-        '2xl': '2rem'
-      }
     }
   },
   plugins: [

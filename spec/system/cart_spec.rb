@@ -37,9 +37,7 @@ RSpec.describe 'Cart', type: :system do
     expect(page).not_to have_content("Solidus mug set")
     expect(page).to have_content("Your cart is empty")
 
-    within "#link-to-cart" do
-      expect(page.text).to eq('')
-    end
+    expect(page).to have_css("#link-to-cart a.cart-info.empty")
   end
 
   skip 'allows you to empty the cart', js: true do
@@ -52,9 +50,7 @@ RSpec.describe 'Cart', type: :system do
     click_on "Empty Cart"
     expect(page).to have_content("Your cart is empty")
 
-    within "#link-to-cart" do
-      expect(page.text).to eq('')
-    end
+    expect(page).to have_css("#link-to-cart a.cart-info.empty")
   end
 
   # regression for https://github.com/spree/spree/issues/2276

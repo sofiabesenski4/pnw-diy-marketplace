@@ -1,7 +1,7 @@
-<ul class="shipping-methods">
+<ul class="shipping-methods flex flex-col gap-3.5">
   <% shipping_rates.each do |rate| %>
-    <li class="shipping-methods__rate mb-6 last:mb-0">
-      <%= form.label :selected_shipping_rate_id, value: rate.id, class: "radio-input flex gap-x-3 items-center last:mb-0" do %>
+    <li class="shipping-methods__rate">
+      <%= form.label :selected_shipping_rate_id, value: rate.id, class: "radio-input flex gap-x-3.5 items-center px-[18px] py-3.5 bg-white text-ink text-[17px] border-2 border-dashed border-ink rounded-[4px_12px_5px_10px] cursor-pointer has-[:checked]:border-solid" do %>
         <%= form.radio_button(:selected_shipping_rate_id, rate.id) %>
         <%= "#{rate.name} #{rate.display_cost}" %>
       <% end %>

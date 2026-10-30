@@ -1,8 +1,8 @@
 <% variant = line_item.variant %>
 
 <%= order_form.fields_for :line_items, line_item do |item_form| %>
-  <article class="cart-item py-6 border-b-[1px] border-b-gray-200 grid-container">
-    <div class="flex justify-center items-center col-span-1 bg-gray-50 rounded-lg p-2 min-w-[60px] min-h-[60px] aspect-square md:rounded-xl md:col-span-3 lg:rounded-2xl">
+  <article class="cart-item py-6 border-b-2 border-dashed border-b-ink dark:border-b-sand grid-container">
+    <div class="flex justify-center items-center col-span-1 bg-well border-2 border-dashed border-ink p-2 min-w-[60px] min-h-[60px] aspect-square md:col-span-3">
       <%= link_to(
         render(ImageComponent.new(
           image: variant.gallery.images.first || variant.product.gallery.images.first,
@@ -20,7 +20,7 @@
         classes: ['cart-item__info']
       ) %>
       <div class="cart-item__price md:hidden col-span-2">
-        <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
+        <p class="price-pen"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
         </div>
 
         <div class="cart-item__price hidden md:block col-span-2">
-          <p class="font-sans-md"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
+          <p class="price-pen"><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p>
         </div>
 
         <div class="flex items-center justify-end md:hidden gap-x-2">
