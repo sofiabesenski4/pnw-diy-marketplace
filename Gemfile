@@ -70,7 +70,12 @@ group :development, :test do
   gem "rubocop", "~> 1.0"
   gem "rubocop-performance", "~> 1.5"
   gem "rubocop-rails", "~> 2.3"
-  gem "rubocop-rspec", "~> 2.0"
+  gem "rubocop-rspec", "~> 3.0"
+  gem "rubocop-rspec_rails", "~> 2.31"
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+  # Audit gems for known vulnerabilities [https://github.com/rubysec/bundler-audit]
+  gem "bundler-audit", require: false
 end
 
 gem "solidus_admin", ">= 0.2"
