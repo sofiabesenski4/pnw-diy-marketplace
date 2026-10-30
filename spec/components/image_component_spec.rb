@@ -44,6 +44,14 @@ RSpec.describe ImageComponent, type: :component do
       end
     end
 
+    context 'when the image is stored' do
+      let(:arguments) { { image: create(:image), size: :small } }
+
+      it 'renders a stable representation path that survives fragment caching' do
+        expect(page_image['src']).to start_with('/rails/active_storage/representations/redirect/')
+      end
+    end
+
     context 'when all the required arguments are provided' do
       let(:arguments) do
         {
