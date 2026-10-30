@@ -1,5 +1,8 @@
 $inter-font-path: './inter/';
 $source-serif-font-path: './source-serif/'; 
+$rock-salt-font-path: './rock-salt/';
+$reenie-beanie-font-path: './reenie-beanie/';
+$courier-prime-font-path: './courier-prime/';
 
 @font-face {
   font-family: 'Inter Regular';
@@ -34,5 +37,38 @@ $source-serif-font-path: './source-serif/';
 @font-face {
   font-family: 'Source Serif Medium';
   src: url('#{$source-serif-font-path}source-serif-4-v8-latin-500.woff2') format('woff2');
+  font-display: swap;
+}
+
+// Ballpoint Punk fonts, self-hosted so shoppers' browsers never contact Google.
+@font-face {
+  font-family: 'Rock Salt';
+  src: url('#{$rock-salt-font-path}rock-salt-v24-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Reenie Beanie';
+  src: url('#{$reenie-beanie-font-path}reenie-beanie-v22-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Courier Prime';
+  src: url('#{$courier-prime-font-path}courier-prime-v11-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Courier Prime';
+  src: url('#{$courier-prime-font-path}courier-prime-v11-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
