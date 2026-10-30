@@ -1,34 +1,23 @@
 <div class="relative flex items-center" data-controller="top-bar">
-  <div class="flex items-center gap-x-6">
+  <div class="flex items-center gap-x-2 sm:gap-x-3 lg:gap-x-5 font-bold uppercase tracking-[.05em]">
     <%= render 'shared/search/search_bar', taxons: taxons, taxon: taxon, :locals => { :additional_classes => 'hidden lg:flex' } %>
     <div class="hidden lg:flex">
       <%= render "shared/navigation/theme_switcher" %>
     </div>
-    <div class='relative w-6 h-6'>
-      <svg class='w-6 h-6 fill-black dark:fill-white'>
-        <use xlink:href="<%= image_path('remixicon.symbol.svg') %>#ri-shopping-cart-2-line"></use>
-      </svg>
-      <div id="link-to-cart" class="absolute top-0 left-0 w-full h-full" data-top-bar-target="cartLink">
-        <noscript>
-          <%= link_to t('spree.cart'), cart_path %>
-        </noscript>
-      </div>
-    </div>
 
-    <div class="relative w-6 h-6">
-      <%= link_to spree_current_user ? account_path : login_path, title: spree_current_user ? 'Account' : 'Login' do %>
-        <svg class='w-6 h-6 fill-black dark:fill-white'>
+    <div class="relative">
+      <%= link_to spree_current_user ? account_path : login_path, title: spree_current_user ? 'Account' : 'Login', class: 'flex items-center min-h-[44px] text-ink dark:text-sand hover:underline underline-offset-4' do %>
+        <svg class='w-6 h-6 fill-current sm:hidden' aria-hidden="true">
           <use xlink:href="<%= image_path('remixicon.symbol.svg') %>#ri-user-line"></use>
         </svg>
+        <span class="hidden sm:inline"><%= spree_current_user ? t('spree.my_account') : t('spree.login') %></span>
       <% end %>
     </div>
-    <div class="relative hidden lg:flex">
-      <%= link_to "https://solidus.io", class:"flex flex-row items-center gap-1" do %>
-        <span class="font-semibold text-black dark:text-white">solidus.io</span>
-        <svg class='w-5 h-5 fill-black dark:fill-white'>
-          <use xlink:href="<%= image_path('remixicon.symbol.svg') %>#ri-arrow-right-up-line"></use>
-        </svg>
-      <% end %>
+
+    <div id="link-to-cart" class="relative" data-top-bar-target="cartLink">
+      <noscript>
+        <%= link_to t('spree.cart'), cart_path %>
+      </noscript>
     </div>
   </div>
 </div>

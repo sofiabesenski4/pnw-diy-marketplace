@@ -1,14 +1,14 @@
-<ul class="shipment-items flex flex-col gap-y-5 pb-6 border-b-[1px] border-b-gray-200">
+<ul class="shipment-items flex flex-col gap-y-5 pb-6 border-b-2 border-dashed border-b-ink dark:border-b-sand">
   <% shipment_items.each do |shipment_item| %>
     <li class="flex gap-x-4">
-      <div class="shipment-items__image flex justify-center items-center bg-gray-50 rounded-lg p-2 max-w-[90px] max-h-[90px] aspect-square md:rounded-xl">
+      <div class="shipment-items__image flex justify-center items-center bg-well border-2 border-dashed border-ink p-2 max-w-[90px] max-h-[90px] aspect-square">
         <%= render(ImageComponent.new(
           image: shipment_item.variant.gallery.images.first || shipment_item.variant.product.gallery.images.first,
           size: :small
         )) %>
       </div>
       <div class="flex flex-col gap-y-3 items-start justify-start text-body py-3">
-        <div class="shipment-items__name font-sans-md">
+        <div class="shipment-items__name font-hand text-[28px] leading-none">
           <%= shipment_item.variant.name %>
         </div>
         <div class="shipment-items__price">

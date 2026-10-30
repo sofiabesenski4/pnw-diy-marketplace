@@ -1,7 +1,7 @@
-<% thumbnails_class = "flex shrink-0 w-1_col-3 justify-center items-center snap-center bg-gray-50 rounded-lg p-4 aspect-square transition-colors duration-150 hover:bg-gray-100 md:rounded-xl lg:rounded-2xl lg:w-full" %>
+<% thumbnails_class = "flex shrink-0 w-[76px] h-[76px] justify-center items-center p-1.5 bg-well border-2 border-ink rounded-[3px_8px_4px_9px] transition-colors duration-150 hover:bg-white" %>
 
-<div class="col-span-full no-scrollbar lg:col-span-3 lg:overflow-auto">
-  <ul class="flex flex-nowrap overflow-x-auto no-scrollbar snap-x gap-4 lg:overflow-y-auto lg:snap-y lg:flex-col">
+<div>
+  <ul class="flex flex-wrap gap-3.5">
     <% unless product.has_variants? %>
       <% product.gallery.images.each do |image| %>
         <% next if image.viewable_id != product.master.id %>
@@ -10,8 +10,8 @@
           :li,
           data: { js: 'product-thumbnail', js_id: image.viewable_id }
         ) do %>
-          <%= link_to image.url(:product), class: thumbnails_class do %>
-            <%= image_tag(image.url(:small))  %>
+          <%= link_to product_image_path(image, :product), class: thumbnails_class do %>
+            <%= image_tag(product_image_path(image, :small)) %>
           <% end %>
         <% end %>
       <% end %>
@@ -25,8 +25,8 @@
           :li,
           data: { js: 'variant-thumbnail', js_id: image.viewable_id }
         ) do %>
-          <%= link_to image.url(:product), class: thumbnails_class do %>
-            <%= image_tag(image.url(:small))  %>
+          <%= link_to product_image_path(image, :product), class: thumbnails_class do %>
+            <%= image_tag(product_image_path(image, :small)) %>
           <% end %>
         <% end %>
       <% end %>

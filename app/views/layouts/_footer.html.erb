@@ -1,14 +1,18 @@
-<footer class="wrapper mx-auto grid-container w-full">
-  <div class="col-span-full border-t-[1px] border-t-black dark:border-t-white py-16">
-    <div class="text-center col-span-full md:flex md:items-center md:justify-between md:col-start-2 md:col-span-10">
-      <div class="col-span-full mb-14 md:mb-0">
-        <%= image_tag "logo_full_with_label.svg", class: "mx-auto w-52 mb-7 dark:hidden" %>
-        <%= image_tag "logo_full_with_label_white.svg", class: "mx-auto w-52 mb-7 hidden dark:block" %>
-        <%= render partial: "shared/call_to_action", :locals => { :label => "Visit Solidus.io", :url => 'https://solidus.io', :target => '_blank', :additional_classes => "block mx-auto" } %>
+<footer class="border-t-[3px] border-dashed border-ink bg-paper dark:bg-black dark:border-sand">
+  <div class="wrapper pt-7 pb-9">
+    <div class="flex flex-wrap items-center justify-between gap-5">
+      <div class="flex flex-col gap-1.5">
+        <span class="font-serif text-[20px] leading-[1.5]"><%= current_store.name %></span>
+        <% if current_store.meta_description.present? %>
+          <span class="text-[15px]"><%= current_store.meta_description %></span>
+        <% end %>
       </div>
-      <div class="col-span-full">
-        <%= render "shared/social_icons" %>
+      <div class="flex items-center gap-[18px]" aria-hidden="true">
+        <svg class="w-[34px] h-[34px]" viewBox="0 0 24 24"><path d="M12 20.5 C6 16 2.8 12.6 3.2 8.6 C3.6 5.2 7.6 3.8 10 6 C11 6.9 11.6 8 12 8.8 C12.6 7.4 13.6 5.6 15.6 5 C18.6 4.2 21.4 6.6 20.8 10 C20.2 13.6 16.4 17 12 20.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+        <svg class="w-[34px] h-[34px]" viewBox="0 0 24 24"><path d="M12 2.5 L17.8 20.5 L2.6 9.4 L21.4 9.6 L6.1 20.8 L12.4 3.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"></path></svg>
+        <svg class="w-[34px] h-[34px]" viewBox="0 0 24 24"><path d="M14 2.5 L6 13.2 L11.6 13 L9.4 21.5 L18 10.4 L12.4 10.6 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
       </div>
+      <%= link_to "Visit Solidus.io", "https://solidus.io", target: "_blank", rel: "noopener noreferrer", class: "text-body-sm text-bic underline hover:text-ink dark:text-sand" %>
     </div>
     <%
       available_locales = current_store.available_locales.map do |locale|
@@ -21,7 +25,7 @@
       end.sort
     %>
     <% if available_locales.many? %>
-      <div class="locale-selector"  data-controller="locale-selector">
+      <div class="locale-selector mt-6 max-w-xs" data-controller="locale-selector">
         <%= form_tag select_locale_path do %>
           <div class="locale-selector__select-input select-input">
             <%= label_tag :switch_to_locale, "#{t('spree.i18n.language')}:" %>

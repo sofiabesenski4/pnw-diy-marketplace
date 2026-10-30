@@ -1,11 +1,11 @@
 <%
-  payment_method_card_classes = "rounded-xl bg-white p-6 border-[1px] border-gray-mid mb-6 text-black dark:bg-black dark:border-gray-400 dark:text-sand"
-  payment_method_top_label_classes = "flex items-center justify-between mb-6 cursor-pointer font-sans-md text-body-md"
+  payment_method_card_classes = "bg-white p-6 border-2 border-ink rounded-[4px_12px_5px_10px] mb-6 text-ink dark:bg-black dark:border-sand dark:text-sand"
+  payment_method_top_label_classes = "flex items-center justify-between mb-6 cursor-pointer font-bold text-body-md"
   payment_method_fieldset_classes = "flex items-center justify-start gap-y-6"
 %>
 
 <div class="payment-step" data-controller="checkout-payment">
-  <fieldset class="payment-step__payment mb-6 border-b-[1px] border-gray-mid">
+  <fieldset class="payment-step__payment mb-6 border-b-2 border-dashed border-b-ink dark:border-b-sand">
     <legend class="font-serif text-h5 md:text-h4">
       <%= t('spree.payment_information') %>
     </legend>

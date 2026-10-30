@@ -1,24 +1,28 @@
-<header class="product-header">
-  <h1 class="font-serif-md text-h4 lg:text-h3 mt-12 mb-3 lg:mt-3" itemprop="name">
+<header class="product-header flex flex-col gap-2.5">
+  <h1 class="font-serif text-[30px] leading-[1.45] lg:text-[44px]" itemprop="name">
     <%= product.name %>
   </h1>
 
   <% if product.price_for_options(current_pricing_options)&.money and !product.price.nil? %>
-    <h2 class="font-sans-md text-body-md" id="product-price">
-      <%= content_tag(
-        :span,
-        display_price(product),
-        itemprop: 'price',
-        content: product.price_for_options(current_pricing_options)&.money.to_d,
-        data: { js: 'price' }
-      ) %>
+    <%# The ellipse lives outside #product-price because variant selection JS replaces its contents. %>
+    <div class="relative self-start px-6 py-2.5 text-red-pen">
+      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 160 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 8 C70 -2 150 6 154 30 C158 54 70 60 30 52 C2 46 2 18 40 9 C60 5 90 4 110 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg>
+      <h2 class="relative price-pen text-[28px]" id="product-price">
+        <%= content_tag(
+          :span,
+          display_price(product),
+          itemprop: 'price',
+          content: product.price_for_options(current_pricing_options)&.money.to_d,
+          data: { js: 'price' }
+        ) %>
 
-      <%= content_tag(
-        :span,
-        nil,
-        itemprop: 'priceCurrency',
-        content: current_pricing_options.currency
-      ) %>
-    </h2>
+        <%= content_tag(
+          :span,
+          nil,
+          itemprop: 'priceCurrency',
+          content: current_pricing_options.currency
+        ) %>
+      </h2>
+    </div>
   <% end %>
 </header>
