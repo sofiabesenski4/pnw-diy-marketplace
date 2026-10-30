@@ -31,7 +31,7 @@
         </span>
       </header>
       <section
-        class="product-card_price price-pen text-[17px]"
+        class="product-card_price price-pen text-[17px] flex items-center justify-between gap-2"
         itemprop="offers"
         itemscope
         itemtype="http://schema.org/Offer"
@@ -42,6 +42,7 @@
           </span>
           <span itemprop="priceCurrency" content="<%= display_price.currency %>"></span>
         <% end %>
+        <%= helpers.render 'shared/maple_leaf', classes: 'ml-auto w-5 h-5 rotate-12' %>
       </section>
     </section>
   </article>

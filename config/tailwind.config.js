@@ -82,6 +82,9 @@ module.exports = {
         ink: '#141414',
         bic: '#1F3A93',
         'red-pen': '#B42B25',
+        // Flag of Canada red (Pantone 032), lifted a little for dark backgrounds.
+        maple: '#D52B1E',
+        'maple-light': '#EF4A3C',
         rule: '#BFD3EC',
         margin: '#E58F8F',
         sticky: '#FFF3A8',
