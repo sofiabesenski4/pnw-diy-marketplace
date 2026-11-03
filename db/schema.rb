@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_05_201136) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_30_153858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1051,6 +1051,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_05_201136) do
     t.string "available_locales"
     t.string "bcc_email"
     t.integer "reverse_charge_status", default: 0, null: false, comment: "Enum values: 0 = disabled, 1 = enabled, 2 = not_validated"
+    t.integer "address_id"
+    t.index ["address_id"], name: "index_spree_stores_on_address_id"
     t.index ["code"], name: "index_spree_stores_on_code"
     t.index ["default"], name: "index_spree_stores_on_default"
   end
@@ -1183,6 +1185,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_05_201136) do
     t.datetime "confirmed_at", precision: nil
     t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
+    t.string "timezone", comment: "User's timezone, e.g., 'Eastern Time (US & Canada)'"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["reset_password_token"], name: "index_spree_users_on_reset_password_token_solidus_auth_devise", unique: true
@@ -1294,6 +1297,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_05_201136) do
   add_foreign_key "spree_shipping_method_categories", "spree_shipping_categories", column: "shipping_category_id"
   add_foreign_key "spree_shipping_method_categories", "spree_shipping_methods", column: "shipping_method_id"
   add_foreign_key "spree_states", "spree_countries", column: "country_id", on_delete: :cascade
+  add_foreign_key "spree_stores", "spree_addresses", column: "address_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_rates", column: "tax_rate_id"
   add_foreign_key "spree_user_addresses", "spree_addresses", column: "address_id"

@@ -16,7 +16,7 @@ module LayoutHelper
     allowed_parameters: [:keywords, :page, :search, :taxon]
   )
     path_without_extension = request.path
-      .sub(/\.#{params[:format]}$/, "")
+      .sub(/\.#{Regexp.escape(params[:format].to_s)}\z/, "")
       .sub(/\/$/, "")
 
     href = "#{request.protocol}#{host}#{path_without_extension}"

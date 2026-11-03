@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.4"
+gem "rails", "~> 8.1.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -45,7 +45,7 @@ group :development do
   gem "web-console"
 end
 
-gem "solidus", "~> 4.6"
+gem "solidus", "~> 4.8"
 
 gem "solidus_auth_devise", "~> 2.5"
 gem "responders"
@@ -71,6 +71,10 @@ group :development, :test do
   gem "rubocop-performance", "~> 1.5"
   gem "rubocop-rails", "~> 2.3"
   gem "rubocop-rspec", "~> 2.0"
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+  # Audit gems for known vulnerabilities [https://github.com/rubysec/bundler-audit]
+  gem "bundler-audit", require: false
 end
 
 gem "solidus_admin", ">= 0.2"
