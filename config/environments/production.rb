@@ -37,7 +37,8 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  config.assume_ssl = true
+  # Left off: our host's router sets X-Forwarded-Proto, and assuming SSL stops force_ssl from redirecting http.
+  # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
