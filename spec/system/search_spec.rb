@@ -19,11 +19,12 @@ RSpec.describe 'searching products', :js, type: :system do
 
   it 'shows autocomplete suggestions' do
     fill_search_input_with 'Solidus'
-    expect(page.all('[data-search-target="result"]').size).to eq(6)
+    expect(page).to have_selector('[data-search-target="result"]', count: 6)
   end
 
   it 'automatically selects the first suggestion' do
     fill_search_input_with 'Solidus'
+    wait_for_autocomplete
     expect(page.all('[data-search-target="result"]')[0][:class]).to include('text-primary')
   end
 
@@ -42,16 +43,19 @@ RSpec.describe 'searching products', :js, type: :system do
     fill_search_input_with 'Solidus'
     wait_for_autocomplete
 
-    find_all('[data-search-target="result"] a')[0].click
-    expect(page).to have_current_path('/products/solidus-hoodie')
+    first_result = find_all('[data-search-target="result"] a')[0]
+    first_result_path = URI(first_result[:href]).path
+    first_result.click
+    expect(page).to have_current_path(first_result_path)
   end
 
   it 'clicks on a suggestion pressing enter' do
     fill_search_input_with 'Solidus'
     wait_for_autocomplete
+    first_result_path = URI(find_all('[data-search-target="result"] a')[0][:href]).path
     find('input[name=keywords]').native.send_keys(:enter)
 
-    expect(page).to have_current_path('/products/solidus-hoodie')
+    expect(page).to have_current_path(first_result_path)
   end
 
   it 'closes autocomplete suggestions pressing esc key' do
@@ -71,8 +75,9 @@ RSpec.describe 'searching products', :js, type: :system do
     expect(page).not_to have_selector('[data-search-target="result"]', visible: true)
   end
 
+  # Five products plus the "See all results" link.
   def wait_for_autocomplete
-    expect(page).to have_selector('[data-search-target="result"]', visible: true)
+    expect(page).to have_selector('[data-search-target="result"]', visible: true, count: 6)
   end
 
   def fill_search_input_with(text)

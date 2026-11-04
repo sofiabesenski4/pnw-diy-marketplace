@@ -20,6 +20,7 @@ RSpec.describe 'Promotion Code Invalidation', type: :system, js: true do
     visit products_path
     click_link "DL-44"
     click_button "Add To Cart"
+    assert_current_path(cart_path)
 
     visit products_path
     click_link "E-11"

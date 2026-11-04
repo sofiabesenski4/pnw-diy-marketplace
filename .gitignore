@@ -29,3 +29,6 @@
 app/assets/builds/solidus_admin/
 
 public/system
+
+# RSpec example status persistence
+/spec/examples.txt

@@ -1,0 +1,6 @@
+---
+ignore:
+  # view_component slot state leaking across reused instances.
+  # solidus_admin 0.5.0 pins view_component ~> 3.9, so the 4.14 fix cannot be installed.
+  # Our components are built fresh on every render. Remove once solidus_admin allows 4.x.
+  - GHSA-8qw7-6phv-7q6p

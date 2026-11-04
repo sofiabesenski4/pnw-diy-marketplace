@@ -186,6 +186,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           visit products_path
           click_link "Solidus cap"
           click_button "add-to-cart-button"
+          expect(page).to have_current_path(cart_path)
 
           visit cart_path
           fill_in "coupon_code", with: "onetwo"
@@ -227,6 +228,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           visit products_path
           click_link "Solidus cap"
           click_button "add-to-cart-button"
+          expect(page).to have_current_path(cart_path)
 
           visit cart_path
 

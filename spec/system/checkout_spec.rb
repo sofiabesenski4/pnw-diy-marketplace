@@ -34,6 +34,7 @@ RSpec.describe 'Checkout', :js, type: :system do
       before do
         add_mug_to_cart
         click_button "Checkout"
+        expect(page).to have_no_current_path(cart_path)
       end
 
       it 'goes to address state', js: true do
@@ -110,6 +111,7 @@ RSpec.describe 'Checkout', :js, type: :system do
 
         add_mug_to_cart
         click_button "Checkout"
+        expect(page).to have_no_current_path(cart_path)
         # We need an order reload here to get newly associated addresses.
         # Then we go back to address where we are supposed to be redirected.
         order.reload
@@ -171,6 +173,7 @@ RSpec.describe 'Checkout', :js, type: :system do
         before do
           add_mug_to_cart
           click_button "Checkout"
+          expect(page).to have_no_current_path(cart_path)
 
           # Simulate user login
           Spree::Order.last.associate_user!(user)
@@ -318,7 +321,7 @@ RSpec.describe 'Checkout', :js, type: :system do
       check_payment_method = create(:check_payment_method)
 
       user = create(:user)
-      create(:store_credit, user: user)
+      create(:store_credit, user: user, currency: Spree::Config.currency)
       order = Spree::TestingSupport::OrderWalkthrough.up_to(:payment, user: user)
 
       allow(order).to receive_messages(available_payment_methods: [check_payment_method, credit_card_payment_method])
@@ -473,6 +476,7 @@ RSpec.describe 'Checkout', :js, type: :system do
         end
 
         click_on "Update"
+        expect(page).to have_content(I18n.t("spree.cart_subtotal", count: 3))
       end
 
       it "redirects user back to address step" do
@@ -496,6 +500,7 @@ RSpec.describe 'Checkout', :js, type: :system do
         visit products_path
         click_link bag.name
         click_button "add-to-cart-button"
+        expect(page).to have_current_path(cart_path)
       end
 
       it "redirects user back to address step" do
@@ -585,7 +590,7 @@ RSpec.describe 'Checkout', :js, type: :system do
       fill_in_credit_card
       click_button "Save and Continue"
 
-      expect(current_path).to eq checkout_state_path('confirm')
+      expect(page).to have_current_path(checkout_state_path('confirm'))
       check 'Agree to Terms of Service'
       click_button "Place Order"
     end
@@ -661,6 +666,7 @@ RSpec.describe 'Checkout', :js, type: :system do
       before do
         canada.states.destroy_all
         zone.members.create!(zoneable: canada)
+        shipping_method.zones << zone
       end
 
       it "displays the entered state name without evaluating" do
@@ -688,6 +694,7 @@ RSpec.describe 'Checkout', :js, type: :system do
         fill_in "Zip", with: "H0H0H0"
 
         click_on 'Save and Continue'
+        expect(page).to have_current_path(checkout_state_path(:delivery))
         visit checkout_state_path(:address)
 
         expect(page).to have_field(state_name_css, with: xss_string)
@@ -760,5 +767,6 @@ RSpec.describe 'Checkout', :js, type: :system do
     visit products_path
     click_link mug.name
     click_button "add-to-cart-button"
+    expect(page).to have_current_path(cart_path)
   end
 end
