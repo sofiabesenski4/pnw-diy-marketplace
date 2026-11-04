@@ -14,7 +14,9 @@ RSpec.shared_context 'fr locale' do
 
   after do
     I18n.available_locales = [:en]
-    I18n.locale = :en # reset locale after each spec.
+    # Reset the locale after each spec, including on the app server's threads,
+    # which keep the locale of the last request they served.
+    Thread.list.each { |thread| thread[:i18n_config] = nil }
     I18n.reload!
   end
 end
