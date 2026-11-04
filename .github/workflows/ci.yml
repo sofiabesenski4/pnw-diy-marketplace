@@ -110,6 +110,10 @@ jobs:
       - name: Install JS dependencies
         run: yarn install --frozen-lockfile
 
+      # Product images render as vips variants. Without libvips, Rails cannot build them.
+      - name: Install libvips
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libvips-dev
+
       - name: Prepare database and build assets
         run: bin/rails db:test:prepare spec:prepare
 
