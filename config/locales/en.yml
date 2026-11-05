@@ -29,3 +29,11 @@
 
 en:
   hello: "Hello world"
+  checkouts:
+    pickup_insufficient_stock: "%{store} doesn't have everything in your order. Choose another store or ship to your address."
+    steps:
+      address_step:
+        pickup_choice:
+          how_to_receive: "How do you want to get your order?"
+          deliver_to_my_address: "Ship to my address"
+          pick_up_at: "Pick up at %{store}"

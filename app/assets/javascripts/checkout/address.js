@@ -24,6 +24,11 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     function fillStates(stateContainer, countryId) {
+      // Pickup hides the street fields. Leave their state field disabled.
+      if (stateContainer.closest('[data-street-field]')?.style.display === 'none') {
+        return;
+      }
+
       const stateData = statesCache[countryId];
 
       if (!stateData) {
@@ -103,21 +108,38 @@ window.addEventListener('DOMContentLoaded', () => {
       update_shipping_form_state(orderUseBilling);
     });
 
+    const isPickup = () =>
+      document.querySelector('[data-pickup-choice]:checked')?.dataset.pickupChoice === 'store';
+
+    // Pickup orders ship to the store. The server copies the store's street,
+    // so only the customer's name and phone are sent.
     function update_shipping_form_state(order_use_billing) {
-      const addressInputs = document.querySelectorAll('#shipping .address-inputs');
-      const inputs = document.querySelectorAll('#shipping .address-inputs input');
-      const selects = document.querySelectorAll('#shipping .address-inputs select');
-      if (order_use_billing.checked) {
-        addressInputs.forEach(addressInput => addressInput.style.display = 'none');
-        inputs.forEach(input => input.setAttribute('disabled', true));
-        selects.forEach(sel => sel.setAttribute('disabled', true));
-      } else {
-        addressInputs.forEach(addressInput => addressInput.style.display = 'block');
-        inputs.forEach(input => input.removeAttribute('disabled'));
-        selects.forEach(sel => sel.removeAttribute('disabled'));
+      const pickup = isPickup();
+      if (pickup) order_use_billing.checked = false;
+      order_use_billing.closest('label').style.display = pickup ? 'none' : '';
+      const useBilling = order_use_billing.checked;
+
+      document.querySelectorAll('#shipping .address-inputs').forEach(addressInput => {
+        addressInput.style.display = useBilling ? 'none' : '';
+      });
+
+      document.querySelectorAll('#shipping [data-street-field]').forEach(wrapper => {
+        wrapper.style.display = pickup ? 'none' : '';
+      });
+
+      document.querySelectorAll('#shipping .address-inputs input, #shipping .address-inputs select')
+        .forEach(input => {
+          input.disabled = useBilling || (pickup && !!input.closest('[data-street-field]'));
+        });
+
+      if (!useBilling && !pickup) {
         document.querySelector('#shipping .js-trigger-state-change').dispatchEvent(new Event('change'));
       }
     };
+
+    document.querySelectorAll('[data-pickup-choice]').forEach(radio => {
+      radio.addEventListener('change', () => update_shipping_form_state(orderUseBilling));
+    });
 
     update_shipping_form_state(orderUseBilling);
   }
