@@ -11,13 +11,13 @@
     <div class="variant-container">
       <% sorted_option_types(product).each_with_index do |option_type, i| %>
         <div class="variant-selection mb-7">
-          <%= render 'cart_line_items/product_selection/option_type', product: product, option_type: option_type, index: i %>
+          <%= render 'cart_line_items/product_selection/option_type', product: product, option_type: option_type, index: i, selected_variant: local_assigns[:selected_variant] %>
         </div>
       <% end %>
     </div>
   <% end %>
 
-  <%= render 'cart_line_items/product_variants', product: product %>
+  <%= render 'cart_line_items/product_variants', product: product, selected_variant: local_assigns[:selected_variant] %>
 
   <% if product.price %>
     <%= render 'cart_line_items/product_submit', product: product %>

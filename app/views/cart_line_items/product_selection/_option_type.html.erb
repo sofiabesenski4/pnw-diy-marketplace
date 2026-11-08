@@ -3,25 +3,29 @@
     "color" => "flex items-center justify-center rounded-full cursor-pointer w-9 h-9 border-2 border-ink transition-colors duration-150 [&>span]:hidden peer-checked:outline peer-checked:outline-[3px] peer-checked:outline-offset-2 peer-checked:outline-bic peer-focus-visible:outline-dashed peer-focus-visible:outline-[3px] peer-focus-visible:outline-bic",
     "size" => "flex items-center justify-center min-h-[44px] px-[18px] py-2 cursor-pointer font-bold text-body text-ink border-2 border-ink rounded-[4px_12px_5px_10px] transition-colors duration-150 hover:bg-white peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline-dashed peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px] peer-focus-visible:outline-bic"
   }
+
+  values = option_values(product: product, option_type: option_type)
+  selected_ids = local_assigns[:selected_variant]&.option_value_ids || []
+  selected_value = values.find { |value| selected_ids.include?(value.id) } || values.first
 %>
 
 <div class="modules_product-display-page_product-selection">
   <div class="optionType<%= option_type.presentation %>">
     <div class="mb-3 label-caps"><%= option_type.presentation %>:
       <span class="selected-value" id='<%= "selected-#{option_type.name}" %>'>
-        <%= option_values(product: product, option_type: option_type).first&.presentation %>
+        <%= selected_value&.presentation %>
       </span>
     </div>
 
     <div class="flex flex-wrap items-center gap-3">
-      <% option_values(product: product, option_type: option_type).each_with_index do |option_value, i| %>
+      <% values.each do |option_value| %>
         <label class="mb-0 selection-items">
           <%= tag(
             :input,
             class: "peer absolute opacity-0 h-0 w-0",
             type: "radio",
             value: option_value.id,
-            checked: i.zero?,
+            checked: option_value == selected_value,
             name: "#{option_type.name}",
             "data-action": "clickOnSelection",
             "data-presentation": option_value.presentation,

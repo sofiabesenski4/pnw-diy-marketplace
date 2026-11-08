@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function selectFirstVariant() {
-  const firstVariant = document.querySelector("[data-option-index]");
+  const firstVariant = document.querySelector('[data-option-index="0"]:checked') ||
+    document.querySelector("[data-option-index]");
   if (firstVariant) {
     setTimeout(() => { firstVariant.click(); }, 1);
   }

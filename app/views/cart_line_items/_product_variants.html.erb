@@ -1,5 +1,6 @@
 <%
   variants = product.variants_and_option_values_for(current_pricing_options)
+  checked_variant = variants.find { |variant| variant == local_assigns[:selected_variant] } || variants.first
 %>
 
 <% if variants.any? %>
@@ -9,12 +10,12 @@
     </h2>
 
     <ul class="product-variants__list">
-      <% variants.each_with_index do |variant, index| %>
+      <% variants.each do |variant| %>
         <li class='hidden'>
           <%= radio_button_tag(
             'variant_id',
             variant.id,
-            index == 0,
+            variant == checked_variant,
             "data-js" => 'variant-radio',
             "data-js_price" => variant.price_for_options(current_pricing_options)&.money.to_s,
             "data-option-value-ids" => sorted_option_values(variant).to_json,
