@@ -10,4 +10,5 @@
  *= require spree/frontend/all
  *
  *= require screen
+ *= require spree/frontend/solidus_stripe
 */
