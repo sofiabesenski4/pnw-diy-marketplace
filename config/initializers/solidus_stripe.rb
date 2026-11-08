@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+require "stripe"
+
+# solidus_stripe 5.0 targets this Stripe API version. Without a pin, requests
+# use the account default, and newer versions reject `payment_method_types`.
+Stripe.api_version = "2022-11-15"
+
 SolidusStripe.configure do |config|
   # List of webhook events you want to handle.
   # For instance, if you want to handle the `payment_intent.succeeded` event,
