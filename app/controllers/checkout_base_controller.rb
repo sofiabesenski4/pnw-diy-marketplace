@@ -59,6 +59,8 @@ class CheckoutBaseController < StoreController
   end
 
   def insufficient_stock_error
+    return pickup_insufficient_stock_error if @order.ship_address&.pickup?
+
     packages = @order.shipments.map(&:to_package)
     if packages.empty?
       flash[:error] = I18n.t('spree.insufficient_stock_for_order')
@@ -73,6 +75,14 @@ class CheckoutBaseController < StoreController
         redirect_to checkout_state_path(@order.state)
       end
     end
+  end
+
+  # A pickup order uses only the chosen store's stock. Send the customer back
+  # to choose delivery or another store instead of emptying their cart.
+  def pickup_insufficient_stock_error
+    flash[:error] = t('checkouts.pickup_insufficient_stock', store: @order.ship_address.pickup_location.name)
+    @order.restart_checkout_flow unless @order.address?
+    redirect_to checkout_state_path(:address)
   end
 
   def check_authorization

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_30_153858) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_210000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -116,10 +116,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_30_153858) do
     t.string "vat_id"
     t.string "email"
     t.integer "reverse_charge_status", default: 0, null: false, comment: "Enum values: 0 = disabled, 1 = enabled, 2 = not_validated"
+    t.integer "pickup_location_id"
     t.index ["country_id"], name: "index_spree_addresses_on_country_id"
     t.index ["firstname"], name: "index_addresses_on_firstname"
     t.index ["lastname"], name: "index_addresses_on_lastname"
     t.index ["name"], name: "index_spree_addresses_on_name"
+    t.index ["pickup_location_id"], name: "index_spree_addresses_on_pickup_location_id"
     t.index ["state_id"], name: "index_spree_addresses_on_state_id"
   end
 
@@ -943,6 +945,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_30_153858) do
     t.string "code"
     t.boolean "check_stock_on_transfer", default: true
     t.string "email"
+    t.boolean "pickup_enabled", default: false, null: false
     t.index ["country_id"], name: "index_spree_stock_locations_on_country_id"
     t.index ["state_id"], name: "index_spree_stock_locations_on_state_id"
   end
@@ -1279,6 +1282,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_30_153858) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "spree_addresses", "spree_countries", column: "country_id", on_delete: :restrict
   add_foreign_key "spree_addresses", "spree_states", column: "state_id", on_delete: :restrict
+  add_foreign_key "spree_addresses", "spree_stock_locations", column: "pickup_location_id"
   add_foreign_key "spree_adjustments", "spree_adjustment_reasons", column: "adjustment_reason_id", on_delete: :restrict
   add_foreign_key "spree_customer_returns", "spree_stock_locations", column: "stock_location_id", on_delete: :restrict
   add_foreign_key "spree_orders_promotions", "spree_orders", column: "order_id", on_delete: :cascade, validate: false
