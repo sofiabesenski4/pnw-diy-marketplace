@@ -2,12 +2,12 @@
   class="product-card paper-card w-full px-3.5 py-4 <%= additional_classes %>"
   itemscope
   itemtype="http://schema.org/Product"
-  id="product_<%= product.id %>"
+  id="<%= card_dom_id %>"
 >
   <span class="tape" aria-hidden="true"></span>
   <article class="h-full flex flex-col gap-2.5">
     <section class="product-card_image aspect-square overflow-hidden flex items-center justify-center border-2 border-dashed border-ink bg-well">
-      <%= link_to product_path(product), itemprop: 'url', class: 'flex items-center justify-center w-full h-full' do %>
+      <%= link_to card_path, itemprop: 'url', class: 'flex items-center justify-center w-full h-full' do %>
         <%= render(
           ImageComponent.new(
             image: main_image,
@@ -22,14 +22,17 @@
       <header class="product-card_header font-hand text-[32px] leading-none">
         <span>
           <%= link_to(
-            truncate(product.name, length: 50),
-            product_path(product),
+            truncate(card_name, length: 50),
+            card_path,
             class: 'info hover:underline underline-offset-4',
             itemprop: "name",
-            title: product.name
+            title: card_name
           ) %>
         </span>
       </header>
+      <% if options_label.present? %>
+        <p class="product-card_options text-[15px] leading-tight"><%= options_label %></p>
+      <% end %>
       <section
         class="product-card_price price-pen text-[17px] flex items-center justify-between gap-2"
         itemprop="offers"
