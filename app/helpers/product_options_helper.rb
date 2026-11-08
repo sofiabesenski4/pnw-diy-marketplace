@@ -5,6 +5,13 @@ module ProductOptionsHelper
     product.variants_and_option_values_for(current_pricing_options)
   end
 
+  # The variant checked when the product page loads: the one the shopper
+  # clicked on a variant card, otherwise the first one.
+  def initial_variant(product, selected_variant = nil)
+    variants = product_variants_with_options(product)
+    variants.find { |variant| variant == selected_variant } || variants.first
+  end
+
   def sorted_option_values(variant)
     variant.option_values.sort_by { |value| value.option_type.position }.map(&:id)
   end

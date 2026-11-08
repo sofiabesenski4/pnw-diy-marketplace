@@ -6,7 +6,7 @@
   }
 %>
 
-<%= form_for :order, url: cart_line_items_path, html: schema_properties, :onload => "setupToCartBtnPriceChangeEvt(#{product.price})" do |f| %>
+<%= form_for :order, url: cart_line_items_path, html: schema_properties do |f| %>
   <% if product_variants_with_options(product).any? %>
     <div class="variant-container">
       <% sorted_option_types(product).each_with_index do |option_type, i| %>
@@ -20,7 +20,7 @@
   <%= render 'cart_line_items/product_variants', product: product, selected_variant: local_assigns[:selected_variant] %>
 
   <% if product.price %>
-    <%= render 'cart_line_items/product_submit', product: product %>
+    <%= render 'cart_line_items/product_submit', product: product, selected_variant: local_assigns[:selected_variant] %>
   <% else %>
     <div id="product-price">
       <p data-js="price" itemprop="price">

@@ -43,8 +43,8 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
     let(:green) { create(:option_value, option_type: color, presentation: "Green") }
     let(:blue) { create(:option_value, option_type: color, presentation: "Blue") }
     let!(:hoodie) { create(:product, name: "Solidus hoodie", option_types: [color]) }
-    let!(:green_hoodie) { create(:variant, product: hoodie, option_values: [green]) }
-    let!(:blue_hoodie) { create(:variant, product: hoodie, option_values: [blue]) }
+    let!(:green_hoodie) { create(:variant, product: hoodie, option_values: [green], price: 30) }
+    let!(:blue_hoodie) { create(:variant, product: hoodie, option_values: [blue], price: 35) }
 
     def checked_value(page, name)
       page.css("input[name='#{name}'][checked]").pluck(:value)
@@ -58,6 +58,7 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
         expect(checked_value(page, "variant_id")).to eq([blue_hoodie.id.to_s])
         expect(checked_value(page, "color")).to eq([blue.id.to_s])
         expect(page.css("#selected-color").text.strip).to eq("Blue")
+        expect(page.css("#cta_price").text).to eq("$35.00")
       end
     end
 
@@ -65,7 +66,10 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
       get product_path(hoodie)
       page = Nokogiri::HTML(response.body)
 
-      expect(checked_value(page, "variant_id")).to eq([green_hoodie.id.to_s])
+      aggregate_failures do
+        expect(checked_value(page, "variant_id")).to eq([green_hoodie.id.to_s])
+        expect(page.css("#cta_price").text).to eq("$30.00")
+      end
     end
 
     it "ignores a variant_id from another product" do

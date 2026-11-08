@@ -27,9 +27,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function updateVariantPrice(variant) {
     const variantPrice = variant.dataset.jsPrice;
-    if (variantPrice) {
-      document.querySelector("[data-js='price']").innerHTML = variantPrice;
-    }
+    if (!variantPrice) return;
+
+    // The header price element is replaced by product_selection_component.js
+    // after the first selection, so it may be gone.
+    const headerPrice = document.querySelector("[data-js='price']");
+    if (headerPrice) headerPrice.innerHTML = variantPrice;
+
+    const ctaPrice = document.querySelector("#cta_price");
+    if (ctaPrice) ctaPrice.innerHTML = variantPrice;
   };
 
   function updateVariantImages(variantId) {

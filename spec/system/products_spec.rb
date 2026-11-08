@@ -184,7 +184,18 @@ RSpec.describe 'Visiting Products', type: :system do
 
       expect(page).to have_css("#selected-color", text: /blue/i)
       expect(page).to have_css("#product-price", text: "25.00")
+      expect(page).to have_css("#cta_price", text: "25.00")
       expect(find("input[name='variant_id'][value='#{blue_hat.id}']", visible: :all)).to be_checked
+    end
+
+    it 'updates the add to cart price when another variant is picked' do
+      blue_radio = "input[name='color'][value='#{blue_hat.option_values.first.id}']"
+      visit product_path(hat)
+      expect(page).to have_css("#cta_price", text: "20.00")
+
+      find(blue_radio, visible: :all).find(:xpath, "..").click
+
+      expect(page).to have_css("#cta_price", text: "25.00")
     end
   end
 
