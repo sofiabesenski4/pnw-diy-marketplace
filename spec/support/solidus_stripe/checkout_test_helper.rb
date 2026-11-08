@@ -4,6 +4,7 @@ require 'solidus_starter_frontend_spec_helper'
 
 module SolidusStripe::CheckoutTestHelper
   include SolidusStarterFrontend::System::CheckoutHelpers
+
   def self.included(base)
     base.include Devise::Test::IntegrationHelpers
   end
@@ -14,13 +15,12 @@ module SolidusStripe::CheckoutTestHelper
   # environment for testing.
 
   def assign_guest_token(guest_token)
-    # rubocop:disable RSpec/AnyInstance
+    # rubocop:disable-next RSpec/AnyInstance
     allow_any_instance_of(ActionDispatch::Cookies::SignedKeyRotatingCookieJar).tap do |allow_cookie_jar|
       # Retrieve all other cookies from the original jar.
       allow_cookie_jar.to receive(:[]).and_call_original
       allow_cookie_jar.to receive(:[]).with(:guest_token).and_return(guest_token)
     end
-    # rubocop:enable RSpec/AnyInstance
   end
 
   def create_payment_method(setup_future_usage: 'off_session', auto_capture: false)
@@ -96,7 +96,7 @@ module SolidusStripe::CheckoutTestHelper
   def fill_in_stripe_country(country_name)
     using_wait_time(10) do
       within_frame(find_stripe_iframe) do
-        find(%{select[name="country"]}).select(country_name)
+        find(%(select[name="country"])).select(country_name)
       end
     end
   end
@@ -108,7 +108,7 @@ module SolidusStripe::CheckoutTestHelper
   def fills_in_stripe_input(name, with:)
     using_wait_time(10) do
       within_frame(find_stripe_iframe) do
-        with.to_s.chars.each { find(%{input[name="#{name}"]}).send_keys(_1) }
+        with.to_s.chars.each { find(%(input[name="#{name}"])).send_keys(_1) }
       end
     end
   end
@@ -117,7 +117,7 @@ module SolidusStripe::CheckoutTestHelper
     %w[number expiry cvc postalCode].each do |name|
       using_wait_time(10) do
         within_frame(find_stripe_iframe) do
-          field = find(%{input[name="#{name}"]})
+          field = find(%(input[name="#{name}"]))
           field.value.length.times { field.send_keys [:backspace] }
         end
       end
@@ -336,7 +336,7 @@ module SolidusStripe::CheckoutTestHelper
 
       # Fraudulent cards
       # https://stripe.com/docs/testing#fraud-prevention
-      ['4100000000000019', 'Your card has been declined.'],                  # Always blocked
+      ['4100000000000019', 'Your card has been declined.'] # Always blocked
     ].each do |number, text|
       fill_in_stripe_country('United States')
       fill_stripe_form(number: number)

@@ -100,7 +100,7 @@ RSpec.describe 'SolidusStripe Checkout', :js do
   end
 
   context 'with declined cards' do
-    it 'reject transactions with cards declined at intent creation or invalid fields and return an appropriate response' do # rubocop:disable Layout/LineLength
+    it 'reject transactions with cards declined at intent creation or invalid fields and return an appropriate response' do
       create_payment_method
       visit_payment_step(user: create(:user))
       choose_new_stripe_payment

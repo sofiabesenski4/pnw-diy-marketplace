@@ -32,8 +32,8 @@ module SolidusStripe::BackendTestHelper
           number: card_number,
           exp_month: 12,
           exp_year: (Time.zone.now.year + 1),
-          cvc: '123',
-        },
+          cvc: '123'
+        }
       })
     end
   end
@@ -87,11 +87,11 @@ module SolidusStripe::BackendTestHelper
     stripe_payment_intent = create_stripe_payment_intent(stripe_payment_method.id)
 
     create(:solidus_stripe_payment,
-      :authorized,
-      order: order,
-      response_code: stripe_payment_intent.id,
-      stripe_payment_method_id: stripe_payment_method.id,
-      payment_method: payment_method)
+           :authorized,
+           order: order,
+           response_code: stripe_payment_intent.id,
+           stripe_payment_method_id: stripe_payment_method.id,
+           payment_method: payment_method)
   end
 
   def create_captured_payment(card_number: '4242424242424242')
@@ -124,7 +124,7 @@ module SolidusStripe::BackendTestHelper
 
   def refund_payment
     refund_reason = create :refund_reason
-    click_icon(:"mail-reply") # Refund icon style reference in solidus_backend
+    click_icon(:'mail-reply') # Refund icon style reference in solidus_backend
     within '.new_refund' do
       select refund_reason.name, from: 'Reason'
       click_button 'Refund'
@@ -132,7 +132,7 @@ module SolidusStripe::BackendTestHelper
   end
 
   def partially_refund_payment(refund_reason, amount)
-    click_icon(:"mail-reply") # Refund icon style reference in solidus_backend
+    click_icon(:'mail-reply') # Refund icon style reference in solidus_backend
     within '.new_refund' do
       select refund_reason.name, from: 'Reason'
       fill_in 'Amount', with: amount

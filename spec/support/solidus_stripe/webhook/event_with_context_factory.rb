@@ -59,7 +59,7 @@ module SolidusStripe
 
       def solidus_stripe_object
         @solidus_stripe_object = SolidusStripe::Webhook::Event.new(stripe_event: stripe_object,
-          payment_method: @payment_method)
+                                                                   payment_method: @payment_method)
       end
 
       def json
@@ -74,9 +74,7 @@ module SolidusStripe
         @signature ||= Stripe::Webhook::Signature.compute_signature(timestamp, json, secret)
       end
 
-      def slug
-        @payment_method.slug
-      end
+      delegate :slug, to: :@payment_method
     end
   end
 end

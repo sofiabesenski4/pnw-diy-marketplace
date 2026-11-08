@@ -14,8 +14,8 @@ module SolidusStripe
       #   method to simulate an invalid request.
       def webhook_request(context, timestamp: context.timestamp)
         post "/solidus_stripe/#{context.slug}/webhooks",
-          params: context.json,
-          headers: { webhook_signature_header_key => webhook_signature_header(context, timestamp: timestamp) }
+             params: context.json,
+             headers: { webhook_signature_header_key => webhook_signature_header(context, timestamp: timestamp) }
       end
 
       private
