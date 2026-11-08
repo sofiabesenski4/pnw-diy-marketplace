@@ -81,3 +81,5 @@ end
 gem "solidus_admin", ">= 0.2"
 
 gem "solidus_importer", github: "solidusio-contrib/solidus_importer"
+
+gem "solidus_stripe", "~> 5.0"

@@ -22,6 +22,12 @@ application.register("locale-selector", LocaleSelectorController)
 import SearchController from "./search_controller"
 application.register("search", SearchController)
 
+import SolidusStripeConfirmController from "./solidus_stripe_confirm_controller"
+application.register("solidus-stripe-confirm", SolidusStripeConfirmController)
+
+import SolidusStripePaymentController from "./solidus_stripe_payment_controller"
+application.register("solidus-stripe-payment", SolidusStripePaymentController)
+
 import ThemeSwitcherController from "./theme_switcher_controller"
 application.register("theme-switcher", ThemeSwitcherController)
 
