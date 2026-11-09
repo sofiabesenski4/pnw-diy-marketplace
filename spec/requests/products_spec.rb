@@ -38,6 +38,48 @@ RSpec.describe 'Product', type: :request, with_signed_in_user: true do
     end
   end
 
+  context "when a variant_id is passed" do
+    let(:color) { create(:option_type, name: "color", presentation: "Color") }
+    let(:green) { create(:option_value, option_type: color, presentation: "Green") }
+    let(:blue) { create(:option_value, option_type: color, presentation: "Blue") }
+    let!(:hoodie) { create(:product, name: "Solidus hoodie", option_types: [color]) }
+    let!(:green_hoodie) { create(:variant, product: hoodie, option_values: [green], price: 30) }
+    let!(:blue_hoodie) { create(:variant, product: hoodie, option_values: [blue], price: 35) }
+
+    def checked_value(page, name)
+      page.css("input[name='#{name}'][checked]").pluck(:value)
+    end
+
+    it "preselects that variant and its option values" do
+      get product_path(hoodie, variant_id: blue_hoodie.id)
+      page = Nokogiri::HTML(response.body)
+
+      aggregate_failures do
+        expect(checked_value(page, "variant_id")).to eq([blue_hoodie.id.to_s])
+        expect(checked_value(page, "color")).to eq([blue.id.to_s])
+        expect(page.css("#selected-color").text.strip).to eq("Blue")
+        expect(page.css("#cta_price").text).to eq("$35.00")
+      end
+    end
+
+    it "preselects the first variant without a variant_id" do
+      get product_path(hoodie)
+      page = Nokogiri::HTML(response.body)
+
+      aggregate_failures do
+        expect(checked_value(page, "variant_id")).to eq([green_hoodie.id.to_s])
+        expect(page.css("#cta_price").text).to eq("$30.00")
+      end
+    end
+
+    it "ignores a variant_id from another product" do
+      get product_path(hoodie, variant_id: create(:variant).id)
+      page = Nokogiri::HTML(response.body)
+
+      expect(checked_value(page, "variant_id")).to eq([green_hoodie.id.to_s])
+    end
+  end
+
   context "when invalid search params are passed" do
     it "raises ActionController::BadRequest" do
       get products_path, params: { search: "blurb" }
