@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount SolidusStripe::Engine, at: '/solidus_stripe'
   mount SolidusAdmin::Engine, at: '/admin', constraints: ->(req) {
     req.cookies['solidus_admin'] != 'false' &&
     req.params['solidus_admin'] != 'false'

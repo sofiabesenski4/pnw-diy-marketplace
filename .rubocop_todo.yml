@@ -389,6 +389,13 @@ Metrics/MethodLength:
   Max: 886
 
 # Offense count: 2
+# Configuration parameters: CountComments, CountAsOne.
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/support/solidus_stripe/backend_test_helper.rb'
+    - 'spec/support/solidus_stripe/checkout_test_helper.rb'
+
+# Offense count: 2
 # Configuration parameters: CountKeywordArgs, MaxOptionalParameters.
 Metrics/ParameterLists:
   Max: 7
@@ -527,6 +534,8 @@ RSpec/EmptyLineAfterSubject:
 # Configuration parameters: CountAsOne.
 RSpec/ExampleLength:
   Max: 25
+  Exclude:
+    - 'spec/system/frontend/solidus_stripe/checkout_spec.rb'
 
 # Offense count: 14
 # This cop supports safe autocorrection (--autocorrect).
@@ -705,6 +714,7 @@ RSpec/NoExpectationExample:
   Exclude:
     - 'spec/requests/products_spec.rb'
     - 'spec/system/currency_spec.rb'
+    - 'spec/system/frontend/solidus_stripe/checkout_spec.rb'
     - 'spec/system/order_spec.rb'
 
 # Offense count: 11
@@ -1006,6 +1016,15 @@ Style/BlockDelimiters:
     - 'spec/controllers/checkout_guest_sessions_controller_spec.rb'
     - 'spec/mailers/user_mailer_spec.rb'
     - 'spec/system/template_rendering_spec.rb'
+
+# Offense count: 2
+# This cop supports unsafe autocorrection (--autocorrect-all).
+# Configuration parameters: EnforcedStyle, EnforcedStyleForClasses, EnforcedStyleForModules.
+# SupportedStyles: nested, compact
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'spec/support/solidus_stripe/backend_test_helper.rb'
+    - 'spec/support/solidus_stripe/checkout_test_helper.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
