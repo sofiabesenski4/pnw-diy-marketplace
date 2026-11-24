@@ -7,7 +7,7 @@ gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", "~> 8.0.4"
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -83,3 +83,6 @@ gem "solidus_admin", ">= 0.2"
 gem "solidus_importer", github: "solidusio-contrib/solidus_importer"
 
 gem "solidus_stripe", "~> 5.0"
+
+# Ruby 4.0 no longer bundles benchmark, and mini_magick still requires it.
+gem "benchmark"
