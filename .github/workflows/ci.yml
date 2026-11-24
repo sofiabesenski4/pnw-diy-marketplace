@@ -118,7 +118,17 @@ jobs:
         run: bin/rails db:test:prepare spec:prepare
 
       - name: Run specs
-        run: bundle exec rspec
+        env:
+          SOLIDUS_STRIPE_API_KEY: ${{ secrets.SOLIDUS_STRIPE_API_KEY }}
+          SOLIDUS_STRIPE_PUBLISHABLE_KEY: ${{ secrets.SOLIDUS_STRIPE_PUBLISHABLE_KEY }}
+          SOLIDUS_STRIPE_WEBHOOK_SIGNING_SECRET: ${{ secrets.SOLIDUS_STRIPE_WEBHOOK_SIGNING_SECRET }}
+        run: |
+          # Missing secrets arrive as empty strings. Unset them so the app and
+          # factories fall back to their defaults and the Stripe API specs skip.
+          for var in SOLIDUS_STRIPE_API_KEY SOLIDUS_STRIPE_PUBLISHABLE_KEY SOLIDUS_STRIPE_WEBHOOK_SIGNING_SECRET; do
+            if [ -z "${!var}" ]; then unset "$var"; fi
+          done
+          bundle exec rspec
 
       - name: Upload failure screenshots
         if: failure()

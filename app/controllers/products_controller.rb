@@ -24,6 +24,10 @@ class ProductsController < StoreController
       with_prices(current_pricing_options).
       includes([:option_values, :images])
 
+    # Variant cards on the homepage link here with a variant_id, so the
+    # shopper lands on the colourway or size they clicked.
+    @selected_variant = @variants.find_by(id: params[:variant_id]) if params[:variant_id].present?
+
     @product_properties = @product.product_properties.includes(:property)
     @taxon = Spree::Taxon.find(params[:taxon_id]) if params[:taxon_id]
     @similar_products = @product.similar_products

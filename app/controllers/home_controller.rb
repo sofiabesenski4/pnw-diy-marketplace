@@ -4,16 +4,17 @@ class HomeController < StoreController
   helper 'spree/products'
   respond_to :html
 
+  # Lists every purchasable variant as its own card, so each colourway or
+  # size shows its own image and price. Products without options appear once,
+  # through their master variant.
   def index
-    @searcher = build_searcher(params.merge(include_images: true))
-    @products = @searcher.retrieve_products
-
-    # Split products into groups of 3 for the homepage blocks.
-    # You probably want to remove this logic and use your own!
-    homepage_groups = @products.in_groups_of(3, false)
-    @featured_products = homepage_groups[0]
-    @collection_products = homepage_groups[1]
-    @cta_collection_products = homepage_groups[2]
-    @new_arrivals = homepage_groups[3]
+    @variants = Spree::Variant
+                .non_template_variants
+                .where(product_id: Spree::Product.available.select(:id))
+                .with_prices(current_pricing_options)
+                .includes(:images, :prices, option_values: :option_type, product: { master: :images })
+                .order(:product_id, :position)
+                .page(params[:page])
+                .per(Spree::Config.products_per_page)
   end
 end

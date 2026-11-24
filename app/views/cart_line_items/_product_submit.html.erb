@@ -1,12 +1,17 @@
+<%
+  variant = initial_variant(product, local_assigns[:selected_variant])
+  cta_price = variant&.price_for_options(current_pricing_options)&.money || display_price(product)
+%>
+
 <div class="product-submit">
   <%= render 'cart_line_items/product_availability', product: product %>
 
   <div class="flex flex-wrap items-end justify-start gap-x-7 gap-y-5">
     <div class="text-input flex flex-col gap-1 w-20">
       <%= label_tag "quantity", t('spree.quantity') %>
-      <%= number_field_tag "quantity", 1, step: 1, class: 'text-center font-bold', :onchange => "addToCartButtonPriceChangeHandler('#{product.price}')" %>
+      <%= number_field_tag "quantity", 1, step: 1, class: 'text-center font-bold' %>
     </div>
-    <% cta_label = content_tag(:span, "#{t('spree.add_to_cart')} — ") + content_tag(:span, display_price(product), id: 'cta_price') %>
+    <% cta_label = content_tag(:span, "#{t('spree.add_to_cart')} — ") + content_tag(:span, cta_price, id: 'cta_price') %>
     <%= render partial: "shared/call_to_action", :locals => { :label => cta_label, :id => 'add-to-cart-button', :url => nil, :additional_classes => 'grow sm:grow-0' } %>
   </div>
 </div>
