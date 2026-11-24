@@ -1093,8 +1093,6 @@ Style/Documentation:
     - 'app/mailers/application_mailer.rb'
     - 'app/mailers/user_mailer.rb'
     - 'app/models/application_record.rb'
-    - 'app/overrides/product_featured_similar_products.rb'
-    - 'app/overrides/taxon_custom_queries.rb'
     - 'config/application.rb'
     - 'db/migrate/20251216213843_migrate_credit_cards_to_wallet_payment_sources.spree.rb'
     - 'db/migrate/20251216213851_remove_order_id_from_inventory_units.spree.rb'
@@ -1254,12 +1252,6 @@ Style/RedundantConstantBase:
 Style/RedundantFreeze:
   Exclude:
     - 'app/components/filter_component.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantSelf:
-  Exclude:
-    - 'app/overrides/product_featured_similar_products.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
