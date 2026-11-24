@@ -48,10 +48,6 @@
             current_item_classes: 'text-highlighter lg:text-bic underline',
             )) if categories %>
         <% end %>
-
-        <div class="lg:hidden mt-auto">
-          <%= render "shared/navigation/theme_switcher" %>
-        </div>
       </nav>
     </div>
     <%= render 'layouts/top_bar', taxons: taxons, taxon: taxon %>

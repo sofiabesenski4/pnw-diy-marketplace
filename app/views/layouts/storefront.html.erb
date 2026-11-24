@@ -18,8 +18,7 @@
     <%= favicon_link_tag '/storefront_favicon.ico', rel: 'icon', type: 'image/ico' %>
 
     <script>
-      const lsTheme = localStorage.getItem('theme') || 'light'
-      document.documentElement.classList.add(lsTheme)
+      document.documentElement.classList.add('light')
     </script>
 
     <%= yield :head %>
