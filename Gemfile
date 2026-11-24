@@ -80,8 +80,6 @@ end
 
 gem "solidus_admin", ">= 0.2"
 
-gem "solidus_importer", github: "solidusio-contrib/solidus_importer"
-
 gem "solidus_stripe", "~> 5.0"
 
 # Ruby 4.0 no longer bundles benchmark, and mini_magick still requires it.
