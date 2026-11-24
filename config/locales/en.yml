@@ -29,3 +29,5 @@
 
 en:
   hello: "Hello world"
+  spree:
+    province: Province
