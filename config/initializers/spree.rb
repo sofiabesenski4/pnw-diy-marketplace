@@ -9,6 +9,9 @@ Spree.config do |config|
   # Default currency for new sites
   config.currency = "CAD"
 
+  # Default country for address forms (shipping and billing)
+  config.default_country_iso = "CA"
+
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
 
