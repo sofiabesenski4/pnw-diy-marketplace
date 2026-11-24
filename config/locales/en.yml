@@ -37,3 +37,5 @@ en:
           how_to_receive: "How do you want to get your order?"
           deliver_to_my_address: "Ship to my address"
           pick_up_at: "Pick up at %{store}"
+  spree:
+    province: Province
