@@ -1,6 +1,6 @@
 <% @body_id = 'product-details' %>
 
-<% cache [I18n.locale, current_pricing_options, @product] do %>
+<% cache [I18n.locale, current_pricing_options, @product, @selected_variant] do %>
   <section itemscope itemtype="http://schema.org/Product">
     <div class="wrapper grid-container py-8 lg:pb-12 lg:gap-x-14">
       <div class="col-span-full lg:col-span-6">
@@ -13,7 +13,7 @@
       <div class="flex flex-col col-span-full gap-y-7 lg:col-span-6">
         <%= render 'product_header', product: @product %>
         <%= render 'product_promotions', product: @product %>
-        <%= render 'cart_line_items/form', product: @product %>
+        <%= render 'cart_line_items/form', product: @product, selected_variant: @selected_variant %>
         <%= render 'product_info', product: @product %>
       </div>
     </div>

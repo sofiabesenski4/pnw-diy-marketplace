@@ -24,4 +24,20 @@ class ProductCardComponent < ViewComponent::Base
   def display_price
     @display_price ||= price&.money
   end
+
+  def card_path
+    product_path(product)
+  end
+
+  def card_name
+    product.name
+  end
+
+  def card_dom_id
+    "product_#{product.id}"
+  end
+
+  def options_label
+    nil
+  end
 end

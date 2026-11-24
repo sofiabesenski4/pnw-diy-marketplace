@@ -169,6 +169,36 @@ RSpec.describe 'Visiting Products', type: :system do
     end
   end
 
+  context 'arriving from a variant card', js: true do
+    let(:color) { create(:option_type, name: "color", presentation: "Color") }
+    let(:green) { create(:option_value, option_type: color, name: "green", presentation: "Green") }
+    let(:blue) { create(:option_value, option_type: color, name: "blue", presentation: "Blue") }
+    let(:hat) { create(:product, name: "Wool hat", option_types: [color]) }
+    let(:blue_hat) { create(:variant, product: hat, option_values: [blue], price: 25) }
+
+    # The green hat is created first, so it is the default selection.
+    before { create(:variant, product: hat, option_values: [green], price: 20) }
+
+    it 'keeps the clicked variant selected after the page scripts run' do
+      visit product_path(hat, variant_id: blue_hat.id)
+
+      expect(page).to have_css("#selected-color", text: /blue/i)
+      expect(page).to have_css("#product-price", text: "25.00")
+      expect(page).to have_css("#cta_price", text: "25.00")
+      expect(find("input[name='variant_id'][value='#{blue_hat.id}']", visible: :all)).to be_checked
+    end
+
+    it 'updates the add to cart price when another variant is picked' do
+      blue_radio = "input[name='color'][value='#{blue_hat.option_values.first.id}']"
+      visit product_path(hat)
+      expect(page).to have_css("#cta_price", text: "20.00")
+
+      find(blue_radio, visible: :all).find(:xpath, "..").click
+
+      expect(page).to have_css("#cta_price", text: "25.00")
+    end
+  end
+
   context 'a product with variants, images only for the variants' do
     let(:product) do
       Spree::Product.find_by(name: 'Solidus hoodie')
