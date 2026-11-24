@@ -84,3 +84,7 @@ gem "solidus_stripe", "~> 5.0"
 
 # Ruby 4.0 no longer bundles benchmark, and mini_magick still requires it.
 gem "benchmark"
+
+gem "sentry-ruby", "~> 7.3"
+
+gem "sentry-rails", "~> 7.3"
