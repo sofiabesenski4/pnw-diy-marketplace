@@ -93,9 +93,12 @@
     @apply sm:grid-cols-[repeat(auto-fill,minmax(220px,1fr))] sm:gap-x-8 sm:gap-y-11;
   }
 
-  /* Product cards cycle through slight tilts, then straighten and lift on hover. */
+  /* Product cards cycle through slight tilts, then straighten and lift on hover.
+     will-change keeps every card on its own layer. Without it, hovering one card
+     makes the browser redraw its neighbours, and their dashed borders jitter. */
   .product-card {
     transition: rotate .15s, translate .15s;
+    will-change: rotate, translate;
   }
 
   .product-card:nth-child(4n+1) { rotate: -1.4deg; }
