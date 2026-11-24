@@ -99,7 +99,6 @@ class CheckoutsController < CheckoutBaseController
     massaged_params = params.deep_dup
 
     move_payment_source_into_payments_attributes(massaged_params)
-    move_wallet_payment_source_id_into_payments_attributes(massaged_params)
     set_payment_parameters_amount(massaged_params, @order)
 
     massaged_params
@@ -146,18 +145,12 @@ class CheckoutsController < CheckoutBaseController
   end
 
   def before_payment
-    if @order.checkout_steps.include? "delivery"
-      packages = @order.shipments.map(&:to_package)
-      @differentiator = Spree::Stock::Differentiator.new(@order, packages)
-      @differentiator.missing.each do |variant, quantity|
-        @order.contents.remove(variant, quantity)
-      end
-    end
+    return unless @order.checkout_steps.include? "delivery"
 
-    if spree_current_user && spree_current_user.respond_to?(:wallet)
-      @wallet_payment_sources = spree_current_user.wallet.wallet_payment_sources
-      @default_wallet_payment_source = @wallet_payment_sources.detect(&:default) ||
-                                       @wallet_payment_sources.first
+    packages = @order.shipments.map(&:to_package)
+    @differentiator = Spree::Stock::Differentiator.new(@order, packages)
+    @differentiator.missing.each do |variant, quantity|
+      @order.contents.remove(variant, quantity)
     end
   end
 

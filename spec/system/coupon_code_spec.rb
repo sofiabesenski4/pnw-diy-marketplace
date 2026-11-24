@@ -86,12 +86,8 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
           allow_any_instance_of(CartLineItemsController).to receive_messages(spree_current_user: user)
         end
 
-        context 'with saved credit card' do
-          let(:bogus) { create(:credit_card_payment_method, name: "Bogus Card") }
-          let!(:credit_card) do
-            create(:credit_card, user_id: user.id, payment_method: bogus, gateway_customer_profile_id: "BGS-WEFWF")
-          end
-          let!(:wallet_source) { user.wallet.add(credit_card) }
+        context 'with a card payment method' do
+          let!(:bogus) { create(:credit_card_payment_method, name: "Bogus Card") }
 
           before do
             visit products_path
@@ -106,7 +102,7 @@ RSpec.describe 'Coupon code promotions', type: :system, js: true do
             click_button "Save and Continue"
           end
 
-          it "shows wallet payments on coupon code errors" do
+          it "shows payment methods on coupon code errors" do
             fill_in "order_coupon_code", with: "coupon_codes_rule_man"
             click_button "Apply Code"
 

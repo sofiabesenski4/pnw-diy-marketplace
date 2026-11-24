@@ -52,16 +52,15 @@ RSpec.describe 'SolidusStripe Checkout', :js, :stripe_api do
       context "when setup_future_usage is set with '#{setup_future_usage}'" do
         before { create_payment_method(setup_future_usage: setup_future_usage) }
 
-        it "successfully reuses a previously saved card from the user's wallet" do
+        it "does not save the card to the user's wallet or offer it again" do
           user = create(:user)
           successfully_creates_a_payment_intent(user: user)
 
+          expect(user.wallet.wallet_payment_sources).to be_empty
+
           visit_payment_step(user: user)
-          find_existing_payment_radio(user.wallet_payment_sources.first.id).choose
-          submit_payment
-          complete_order
-          payment_intent_is_created_with_required_capture
-          capture_last_valid_payment
+
+          expects_page_to_not_display_wallet_payment_sources
         end
       end
     end

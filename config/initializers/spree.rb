@@ -21,6 +21,9 @@ Spree.config do |config|
   config.image_attachment_module = 'Spree::Image::ActiveStorageAttachment'
   config.taxon_attachment_module = 'Spree::Taxon::ActiveStorageAttachment'
 
+  # Do not save payment sources to the customer's wallet after checkout
+  config.add_payment_sources_to_wallet_class = 'Wallet::SkipAddingPaymentSources'
+
   # Defaults
   # Permission Sets:
 
