@@ -21,7 +21,10 @@
       <%= t('spree.shipping_address') %>
     </legend>
 
-    <%= form.fields_for :ship_address do |ship_form| %>
+    <%= render "checkouts/steps/address_step/pickup_choice", order: order %>
+
+    <% ship_address = ship_address_for_form(order) %>
+    <%= form.fields_for :ship_address, ship_address do |ship_form| %>
       <%= label_tag 'order_use_billing', class: 'checkbox-input mb-5' do %>
         <%= check_box_tag('order[use_billing]', 1, order.shipping_eq_billing_address?) %>
         <%= t('spree.use_billing_address') %>
@@ -31,7 +34,7 @@
         "checkouts/steps/address_step/address_inputs",
         form: ship_form,
         address_type: "shipping",
-        address: order.ship_address,
+        address: ship_address,
         additional_classes: '!border-b-0'
        ) %>
     <% end %>

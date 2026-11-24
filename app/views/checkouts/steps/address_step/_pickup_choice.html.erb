@@ -1,0 +1,27 @@
+<% pickup_locations = Spree::StockLocation.available_for_pickup.order(:position, :name).to_a %>
+<% field_name = "order[ship_address_attributes][pickup_location_id]" %>
+<% chosen_id = order.ship_address&.pickup_location_id %>
+
+<% if pickup_locations.any? %>
+  <fieldset class="pickup-choice flex flex-col gap-3.5 mb-6">
+    <legend class="label-caps mb-3"><%= t(".how_to_receive") %></legend>
+
+    <%= label_tag nil, class: "radio-input flex gap-x-3.5 items-center px-[18px] py-3.5 bg-white text-ink text-[17px] border-2 border-dashed border-ink rounded-[4px_12px_5px_10px] cursor-pointer has-[:checked]:border-solid" do %>
+      <%= radio_button_tag field_name, "", chosen_id.blank?, id: "pickup_choice_delivery", data: { pickup_choice: "delivery" } %>
+      <%= t(".deliver_to_my_address") %>
+    <% end %>
+
+    <% pickup_locations.each do |location| %>
+      <%= label_tag nil, class: "radio-input flex gap-x-3.5 items-center px-[18px] py-3.5 bg-white text-ink text-[17px] border-2 border-dashed border-ink rounded-[4px_12px_5px_10px] cursor-pointer has-[:checked]:border-solid" do %>
+        <%= radio_button_tag field_name, location.id, chosen_id == location.id, id: "pickup_choice_#{location.id}", data: { pickup_choice: "store" } %>
+        <span class="flex flex-col">
+          <%= t(".pick_up_at", store: location.name) %>
+          <small><%= [location.address1, location.city].compact_blank.join(", ") %></small>
+        </span>
+      <% end %>
+    <% end %>
+  </fieldset>
+<% elsif chosen_id %>
+  <%# Clears a pickup address left over from a store that no longer offers pickup. %>
+  <%= hidden_field_tag field_name, "", id: nil %>
+<% end %>

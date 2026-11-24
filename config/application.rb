@@ -60,5 +60,15 @@ module PnwDiyMarketplace
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Overrides prepend themselves onto Solidus classes, so they are loaded
+    # on every boot and reload instead of being autoloaded.
+    overrides = root.join('app/overrides')
+    autoloaders.main.ignore(overrides)
+    config.to_prepare do
+      overrides.glob('**/*_override.rb').each do |override|
+        load override
+      end
+    end
   end
 end

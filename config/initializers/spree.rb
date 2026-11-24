@@ -17,6 +17,9 @@ Spree.config do |config|
   # any inventory changes.
   # config.inventory_cache_threshold = 3
 
+  # Pickup orders take stock only from the chosen store.
+  config.stock.location_filter_class = "PickupLocationFilter"
+
   # Configure adapter for attachments on products and taxons (use ActiveStorageAttachment or PaperclipAttachment)
   config.image_attachment_module = 'Spree::Image::ActiveStorageAttachment'
   config.taxon_attachment_module = 'Spree::Taxon::ActiveStorageAttachment'
@@ -48,6 +51,10 @@ Spree.config do |config|
   #   webhook_endpoint_signing_secret: ENV.fetch('SOLIDUS_STRIPE_WEBHOOK_SIGNING_SECRET')
   # )
 end
+
+# The customer picks a store for in-store pickup. The server fills in the
+# store's street address.
+Spree::PermittedAttributes.address_attributes << :pickup_location_id
 
 Spree::Backend::Config.configure do |config|
   config.locale = 'en'
