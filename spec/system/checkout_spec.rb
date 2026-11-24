@@ -399,19 +399,12 @@ RSpec.describe 'Checkout', :js, type: :system do
       visit checkout_state_path(:payment)
     end
 
-    it "selects first source available and customer moves on" do
-      expect(find_existing_payment_radio(wallet_source.id)).to be_checked
-
-      click_on "Save and Continue"
-      check 'Agree to Terms of Service'
-      click_on "Place Order"
-
-      order = Spree::Order.last
-      expect(page).to have_current_path(order_path(order))
-      expect(page).to have_content("Ending in #{credit_card.last_digits}")
+    it "does not offer saved sources" do
+      expect(page).to have_no_css("[name='order[wallet_payment_source_id]']")
+      expect(find_payment_radio(bogus.id)).to be_checked
     end
 
-    it "allows user to enter a new source" do
+    it "allows user to enter a new source without saving it to their wallet" do
       find_payment_radio(bogus.id).click
       fill_in_credit_card
 
@@ -422,6 +415,7 @@ RSpec.describe 'Checkout', :js, type: :system do
       order = Spree::Order.last
       expect(page).to have_current_path(order_path(order))
       expect(page).to have_content('Ending in 1111')
+      expect(user.wallet.wallet_payment_sources).to eq([wallet_source])
     end
   end
 

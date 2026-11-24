@@ -13,35 +13,8 @@
       <p>Your order is fully covered by store credits, no additional payment method is required.</p>
     <% else %>
       <ul class="payment-step__selector my-6">
-        <% @wallet_payment_sources&.each do |wallet_payment_source| %>
-          <% payment_method = wallet_payment_source.payment_source.payment_method %>
-          <% default = wallet_payment_source == @default_wallet_payment_source %>
-          <% fieldset_name = "wallet-source-#{wallet_payment_source.id}" %>
-
-          <li class="<%= payment_method_card_classes %>">
-            <label class="<%= payment_method_top_label_classes %>">
-              <%= t(payment_method.name, scope: 'spree.payment_methods', default: payment_method.name) %>
-              <%= radio_button_tag(
-                "order[wallet_payment_source_id]",
-                wallet_payment_source.id,
-                default,
-                'data-action': 'checkout-payment#paymentSelected',
-                'data-checkout-payment-target': "paymentRadio",
-                'data-fieldset-name': fieldset_name,
-                id: ","
-              ) %>
-            </label>
-            <fieldset name="<%= fieldset_name %>" class="payment-step__details <%= payment_method_fieldset_classes %>">
-              <%= render(
-                "checkouts/existing_payment/#{payment_method.partial_name}",
-                wallet_payment_source: wallet_payment_source,
-              ) %>
-            </fieldset>
-          </li>
-        <% end %>
-
         <% @order.available_payment_methods.each.with_index do |payment_method, index| %>
-          <% default = !@default_wallet_payment_source && index.zero? %>
+          <% default = index.zero? %>
           <% fieldset_name = "payment-method-#{payment_method.id}" %>
 
           <li class="<%= payment_method_card_classes %>">

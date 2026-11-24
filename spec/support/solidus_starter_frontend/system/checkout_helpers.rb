@@ -67,10 +67,6 @@ module SolidusStarterFrontend
       #
       # Payment
       #
-      def find_existing_payment_radio(wallet_source_id)
-        find("[name='order[wallet_payment_source_id]'][value='#{wallet_source_id}']")
-      end
-
       def find_payment_radio(payment_method_id)
         find("[name='order[payments_attributes][][payment_method_id]'][value='#{payment_method_id}']")
       end
