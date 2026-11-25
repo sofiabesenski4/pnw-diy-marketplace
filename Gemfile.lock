@@ -683,5 +683,8 @@ DEPENDENCIES
   view_component (~> 3.0)
   web-console
 
+RUBY VERSION
+   ruby 4.0.10p0
+
 BUNDLED WITH
    2.7.2
